@@ -1,9 +1,28 @@
-<app-page-content>
+<app-page-content class="game-page">
   <div id="page-title">
-    <h1>Click battle</h1>
+    <h1>Битва кліків</h1>
   </div>
 
   <div id="page-content">
-    <p>game-page works!</p>
+    <div class="score">Гравець: {{ playerScore }} | Комп'ютер: {{ computerScore }}</div>
+
+    <table class="board">
+      <tr class="board-row" *ngFor="let row of board">
+        <td class="board-cell bg-col-{{ cell.status }}" *ngFor="let cell of row" (click)="cellClickHandler(cell)"></td>
+      </tr>
+    </table>
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid || gameStarted" (click)="startGame()">Почати</button>
+
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-5">
+          <app-text-field
+            [label]="'Час реакції (у мілісекундах)'"
+            [control]="form.controls['reactionTime']"
+          ></app-text-field>
+        </div>
+      </div>
+    </form>
   </div>
 </app-page-content>
